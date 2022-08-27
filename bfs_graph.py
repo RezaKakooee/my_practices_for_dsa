@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Created on Sat Aug 27 14:37:47 2022
+Created on Sat Aug 27 15:35:27 2022
 
 @author: Reza Kakooee
 """
@@ -30,28 +30,37 @@ class Graph:
 
 
 #%%
-class GraphDFS:
+class GraphBFS:
     def __init__(self, graph):
         self.graph = graph
-
-    def _dfs(self, visited, node):
-        visited.append(node)
+        self.queue = []
+        
+        
+    def _bfs(self, visited, node):
+        if node not in visited:
+            visited.append(node)
         for neighbor in self.graph[node]:
             if neighbor not in visited:
-                self._dfs(visited, neighbor) # the next node is the neighbor
-
+                visited.append(neighbor)
+                self.queue.append(neighbor)
+        
+        if self.queue:
+            n = self.queue.pop()
+            self._bfs(visited, n) # the next node is being popped from the queue
+        
+        
     def traverse(self, start_node=None):
         if start_node is None:
             start_node = random.choices(list(self.graph.keys()), k=1)[0]
         visited = []
-        self._dfs(visited, start_node)
+        self._bfs(visited, start_node) 
         return visited
+
 
 
 
 #%%
 if __name__ == '__main__':
-        
     g = Graph()
         
     g.add_edge('a', 'b')
@@ -65,8 +74,8 @@ if __name__ == '__main__':
     g.add_edge('f', 'j')
     
     
-    dfs = GraphDFS(g.graph)
-    visited = dfs.traverse()
+    bfs = GraphBFS(g.graph)
+    visited = bfs.traverse()
     print(f"Traverse the graph from start node of '{visited[0]}':")
     print(visited)
 
@@ -75,4 +84,3 @@ if __name__ == '__main__':
     g = nx.DiGraph(g.graph)
     nx.draw_networkx(g)
     
-
