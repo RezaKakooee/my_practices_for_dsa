@@ -7,25 +7,7 @@ Created on Sat Aug 27 14:37:47 2022
 
 import random
 
-
-
-#%%
-class Graph:
-    "This is an undirected graph"
-    def __init__(self):
-        self.graph = {}
-        
-    def add_node(self, n):
-        self.graph.update({n:[]})
-    
-    def add_edge(self, u, v):
-        if u not in self.graph.keys():
-            self.add_node(u)
-        if v not in self.graph.keys():
-            self.add_node(v)
-            
-        self.graph[u].append(v)
-        self.graph[v].append(u)
+from graph import Graph
 
 
 
@@ -53,7 +35,7 @@ class GraphDFS:
 if __name__ == '__main__':
         
     g = Graph()
-        
+      
     g.add_edge('a', 'b')
     g.add_edge('a', 'c')
     g.add_edge('a', 'd')
@@ -61,12 +43,13 @@ if __name__ == '__main__':
     g.add_edge('c', 'f')
     g.add_edge('c', 'g')
     g.add_edge('d', 'h')
-    g.add_edge('e', 'i')
     g.add_edge('f', 'j')
+    g.add_edge('e', 'i')
+    g.add_edge('f', 'a')
     
     
     dfs = GraphDFS(g.graph)
-    visited = dfs.traverse()
+    visited = dfs.traverse('d')
     print(f"Traverse the graph from start node of '{visited[0]}':")
     print(visited)
 

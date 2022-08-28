@@ -7,25 +7,7 @@ Created on Sat Aug 27 15:35:27 2022
 
 import random
 
-
-
-#%%
-class Graph:
-    "This is an undirected graph"
-    def __init__(self):
-        self.graph = {}
-        
-    def add_node(self, n):
-        self.graph.update({n:[]})
-    
-    def add_edge(self, u, v):
-        if u not in self.graph.keys():
-            self.add_node(u)
-        if v not in self.graph.keys():
-            self.add_node(v)
-            
-        self.graph[u].append(v)
-        self.graph[v].append(u)
+from graph import Graph
 
 
 
@@ -73,6 +55,9 @@ if __name__ == '__main__':
     g.add_edge('e', 'i')
     g.add_edge('f', 'j')
     
+    from pprint import pprint
+    print("Graph:")
+    pprint(g.graph)
     
     bfs = GraphBFS(g.graph)
     visited = bfs.traverse()
